@@ -1,14 +1,19 @@
 var jquery = require('jquery');
 var cheerio = require('cheerio');
 var request = require('request');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 var url = 'https://www.relaischateaux.com/fr/site-map/etablissements';
 
-var Frenchlist = [{
-    'restaurant': '',
-    'chef': '',
-    'hote': '',
-    'prix' : ''
-  }];
+var CastleSchema = new Schema({
+    'restaurant': {type : String},
+    'chef': {type : String},
+    'hote': {type : String},
+    'prix' : {type : Number}
+  });
+
+module.exports = castle = mongoose.model('castle', CastleSchema);
 
 request(url, function(err, resp, body) {
     var $ = cheerio.load(body);

@@ -1,5 +1,14 @@
 var cheerio = require('cheerio');
 var request = require('request');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+var MichelinSchema = new Schema({
+  'restaurant': {type : String},
+  'starred': {type : Boolean}
+});
+
+module.exports = michelin = mongoose.model('michelin', MichelinSchema);
 
 var url = '';
 

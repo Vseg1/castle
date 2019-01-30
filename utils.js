@@ -1,68 +1,39 @@
-//const castle = require('castle');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const michelin = require('./michelin.js');
+const castle = require('./castle.js')
 
-var jquery = require('jquery');
-var cheerio = require('cheerio');
-var request = require('request');
-var url = 'https://www.relaischateaux.com/fr/site-map/etablissements';
+const app = express();
 
-var Frenchlist = [{
-    'restaurant': '',
-    'chef': '',
-    'hote': '',
-    'prix' : ''
-  }];
+app.set('view engine', 'ejs');
 
-request(url, function(err, resp, body) {
-    var $ = cheerio.load(body);
-    
+app.use(bodyParser.urlencoded({ extended: false }));
 
-    $("#countryF").each(function(i){
-        console.log('pays : ', $(this).find("h3").text());
-        console.log("iteration - ", i);
+// Connect to MongoDB
+mongoose
+  .connect(
+    'mongodb://mongo:27017/docker-node-mongo',
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
-        if ($(this).find("h3").text() === 'France'){
-            console.log("ok france");
 
-            $(this).find("li").each(function(j){
-
-                console.log('restaurant numéro ', j);
-                //k-ieme restaurant
-                console.log($(this).filter("a").text());
-
-                $(this).find("a").each(function(k){
-
-                    if(k==0){
-                        console.log($(this).filter("a").text());
-                        //nom du restaurant
-
-                        console.log($(this).attr("href"));
-                        //url restaurant
-                    }
-                    if(k==1){
-                        console.log($(this).attr("href"));
-                        //url du chef
-                    }
-                    if(k==2){
-                        console.log($(this).attr("href"));
-                        //url de l'hote
-                    }
-                })
-            })
-        }
-    })
+app.get('/', (req, res) => {
+  Item.find()
+    .then(items => res.render('index', { items }))
+    .catch(err => res.status(404).json({ msg: 'No items found' }));
 });
 
+app.post('/item/add', (req, res) => {
+  const newItem = new Item({
+    name: req.body.name
+  });
 
+  newItem.save().then(item => res.redirect('/'));
+});
 
-/*
-if(k == 0){
-    var elt = $("a:first");
-    console.log(elt);
-}
+const port = 3000;
 
-if(k == 1){
-    Frenchlist[j].chef = $(this)('li').html();
-}
-if(k == 2){
-    Frenchlist[j].Host = $(this)('li').html();
-}*/
+app.listen(port, () => console.log('Server running...'));
