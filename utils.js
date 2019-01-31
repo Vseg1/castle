@@ -30,7 +30,6 @@ app.post('/item/add', (req, res) => {
   const newItem = new Item({
     name: req.body.name
   });
-
   newItem.save().then(item => res.redirect('/'));
 });
 
