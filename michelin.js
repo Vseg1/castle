@@ -72,7 +72,7 @@ for(var i = 1; i < page + 1; i++){
     //on récupère le nom des restaurants d'une page
     $(".poi_card-display-title").each(function(i){
       console.log($(this).text(), '\n');
-      json.push({"nom du restaurant ": $(this).text().trim()});
+      json.push({name: $(this).text().trim()});
     })
     fs.writeFileSync("./michelin.json",JSON.stringify(json));
     });

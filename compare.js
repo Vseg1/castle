@@ -1,15 +1,22 @@
 var fs = require('fs');
-var json1 = require('./castle.json');
-var json2 = require('./michelin.json'); 
-var json3=[];
-	// now compare their keys and values
-	for(var i=0;i<json1.length;i++){
-		for(var j=0; j<json2.length; j++) {
-			if(json1[i].name===json2[j].name) {
-				json3.push({"hotel Name ": json1[i].name,"hotel Price":json1[i].price,"Chef Name":json2[j].chef,"Link for Reservation":json1[i].link})
+var castle = require('./castle.json');
+var michelin = require('./michelin.json'); 
+var result=[];
+
+//console.log(castle);
+//console.log(michelin);
+	
+	for(var i=0;i<castle.length;i++){
+		for(var j=0; j<michelin.length; j++) {
+			if(castle[i].name===michelin[j].name) {
+				//console.log("egalite ok");
+				//console.log(castle[i].name);
+				//console.log(castle[i].url);
+				//console.log(castle[i].chef);
+				//console.log(castle[i].hote);
+				result.push({"hotel Name ": castle[i].name, "url_restaurant ":castle[i].url,"url du chef ":castle[i].chef, "url de l'hote":castle[i].hote})
 		}
 	}
 }
 
-fs.writeFileSync("./compare.json",JSON.stringify(json3));
-console.log(json3);
+fs.writeFileSync("./compare.json",JSON.stringify(result));
