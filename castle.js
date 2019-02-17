@@ -56,8 +56,8 @@ request(url, function(err, resp, body) {
                         //console.log($(this).attr("href"));
                         url_hote = $(this).attr("href").trim();
                         //url de l'hote
+                        json.push({name: nom_hotel, url:url_restaurant, chef :url_chef, hote: url_hote})
                     }
-                    json.push({name: nom_hotel, url:url_restaurant, chef :url_chef, hote: url_hote})
                 })
                 fs.writeFileSync("./castle.json",JSON.stringify(json));
             })
