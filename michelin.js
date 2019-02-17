@@ -1,16 +1,17 @@
+var fs = require('fs');
 var cheerio = require('cheerio');
 var request = require('request');
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-var MichelinSchema = new Schema({
+var json = [];
+
+/*var MichelinSchema = new Schema({
   'restaurant': {type : String},
-  'starred': {type : Boolean}
-});
+  'starred': {type : Number}  
+});*/
+
+/* 0: no stars, 1,2 or 3 */
 
 console.log('michelin ok');
-
-module.exports = michelin = mongoose.model('michelin', MichelinSchema);
 
 var url = '';
 
@@ -53,7 +54,7 @@ request(url,function(err,resp,body){
     if(max(page, $(this).text()) == parseInt($(this).text())){
       page = parseInt($(this).text());
     }
-    //console.log('token retenu : ' + page);
+    console.log('token retenu : ' + page);
   })
   resolve(page);
 });
@@ -62,15 +63,15 @@ request(url,function(err,resp,body){
 p1.then((page)=>{
 for(var i = 1; i < page + 1; i++){
   var urlparpage = url + '/page-'+ i.toString();
-  //console.log('page : '+ i);
-  //console.log(urlparpage);
+  console.log('page : '+ i);
+  console.log(urlparpage);
   
   request(urlparpage,function(err,resp,body){
     var $=cheerio.load(body);
 
     //on récupère le nom des restaurants d'une page
     $(".poi_card-display-title").each(function(i){
-      //console.log($(this).text(), '\n');
+      console.log($(this).text(), '\n');
     })
     });
 }

@@ -6,7 +6,7 @@ const castle = require('./castle.js')
 
 const app = express();
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
