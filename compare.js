@@ -1,6 +1,6 @@
 var fs = require('fs');
-var json1 = require('./restauHotel.json');
-var json2 = require('./starredRestaurants.json'); 
+var json1 = require('./castle.json');
+var json2 = require('./michelin.json'); 
 var json3=[];
 	// now compare their keys and values
 	for(var i=0;i<json1.length;i++){
@@ -11,5 +11,5 @@ var json3=[];
 	}
 }
 
-fs.writeFileSync("combinedJson.json",JSON.stringify(json3));
+fs.writeFileSync("./compare.json",JSON.stringify(json3));
 console.log(json3);

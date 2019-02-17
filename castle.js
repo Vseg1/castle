@@ -18,7 +18,7 @@ var json = [];
 request(url, function(err, resp, body) {
     var $ = cheerio.load(body);
     
-    var nom_restaurant;
+    var nom_hotel;
     var url_chef;
     var url_hote;
     var url_restaurant;
@@ -40,7 +40,7 @@ request(url, function(err, resp, body) {
 
                     if(k==0){
                         //console.log($(this).filter("a").text());
-                        nom_restaurant = $(this).filter("a").text().trim();
+                        nom_hotel = $(this).filter("a").text().trim();
                         //nom du restaurant
 
                         //console.log($(this).attr("href"));
@@ -57,7 +57,7 @@ request(url, function(err, resp, body) {
                         url_hote = $(this).attr("href").trim();
                         //url de l'hote
                     }
-                    json.push({"nom de l'hotel ": nom_restaurant, "url du restaurant ": url_restaurant, "url du chef ": url_chef, "url de l'hote ": url_hote})
+                    json.push({"nom de l'hotel ": nom_hotel, "url du restaurant ": url_restaurant, "url du chef ": url_chef, "url de l'hote ": url_hote})
                 })
                 fs.writeFileSync("./castle.json",JSON.stringify(json));
             })
