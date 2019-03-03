@@ -19,4 +19,4 @@ var result=[];
 	}
 }
 
-fs.writeFileSync("./compare.json",JSON.stringify(result));
+fs.writeFileSync("./my-app/src/compare.json",JSON.stringify(result));
